@@ -1,0 +1,12 @@
+pl\polsl\controller\PasswordLogin.class
+pl\polsl\main\App.class
+pl\polsl\main\Passwordmanager2.class
+pl\polsl\model\Passwords.class
+pl\polsl\controller\PasswordsCrud.class
+pl\polsl\model\User.class
+pl\polsl\view\Login.class
+pl\polsl\controller\LoginInterface.class
+pl\polsl\controller\UserCrud.class
+pl\polsl\view\PasswordTableModel.class
+pl\polsl\exception\UserNotFoundException.class
+pl\polsl\model\UsersCollection.class
