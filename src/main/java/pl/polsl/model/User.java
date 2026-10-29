@@ -14,7 +14,7 @@ public class User {
     private String login;
     private String mainPassword;
     private boolean isAuthenticated;
-    private Passwords storedPasswords;
+    private Passwords passwordManager;
 
     /**
      * User Id getter
@@ -43,11 +43,9 @@ public class User {
         return login;
     }
 
-    public Passwords getStoredPasswords() {
-        return storedPasswords;
+    public Passwords getPasswordManager() {
+        return passwordManager;
     }
-    
-    
 
     public boolean isIsAuthenticated() {
         return isAuthenticated;
@@ -72,7 +70,7 @@ public class User {
         this.login = login;
         this.mainPassword = mainPassword;
         
-        this.storedPasswords = new Passwords();
+        this.passwordManager = new Passwords();
     }
     
     

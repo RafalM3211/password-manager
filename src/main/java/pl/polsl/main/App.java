@@ -17,6 +17,22 @@ public class App {
     static private UsersCollection usersCollection;
     
     static private User currentUser = null;
+    
+    /**
+     * App constructor
+     * @author Rafał Malinowski
+     */
+    private App() {
+        App.usersCollection = new UsersCollection();
+    }
+    
+    private static class Holder {
+        private static final App INSTANCE = new App();
+    }
+    
+     public static App getInstance() {
+        return Holder.INSTANCE;
+    }
 
     public static User getCurrentUser() {
         return currentUser;
@@ -25,8 +41,6 @@ public class App {
     public static void setCurrentUser(User currentUser) {
         App.currentUser = currentUser;
     }
-   
-    
 
     /**
      * Creates default users
@@ -36,7 +50,7 @@ public class App {
         usersCollection.addUser(new User(1, "test", "test"));
         try
         {
-            usersCollection.getUserById(1).getStoredPasswords().addPassword("test website", "test password");
+            usersCollection.getUserById(1).getPasswordManager().addPassword("test website", "test password");
         }
         catch (UserNotFoundException e){
             System.out.println(e.getMessage());
@@ -52,13 +66,4 @@ public class App {
     public static UsersCollection getUsersCollection() {
         return usersCollection;
     }
-
-    /**
-     * App constructor
-     * @author Rafał Malinowski
-     */
-    public App() {
-        usersCollection = new UsersCollection();
-    }
-   
 }

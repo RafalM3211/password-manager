@@ -5,7 +5,6 @@
 package pl.polsl.main;
 
 import pl.polsl.view.Login;
-import pl.polsl.view.Testform;
 
 
 /**
@@ -15,7 +14,7 @@ import pl.polsl.view.Testform;
 public class Passwordmanager2 {
 
     public static void main(String[] args) {
-        App app = new App();
+        App app = App.getInstance();
         app.initUsers();
         
         Login loginFrame = new Login();

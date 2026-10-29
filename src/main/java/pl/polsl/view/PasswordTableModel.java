@@ -4,6 +4,9 @@
  */
 package pl.polsl.view;
 
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import pl.polsl.main.App;
 
@@ -19,32 +22,45 @@ public class PasswordTableModel extends AbstractTableModel {
     }
 
     public PasswordTableModel() {
-        this.model = new App();
+        this.model = App.getInstance();
     }
-    
     
     @Override
     public int getRowCount(){
-        return model.getCurrentUser().getStoredPasswords().getSize();
+        var a = App.getCurrentUser().getPasswordManager().getSize();
+        System.out.println(a);
+        return a;
     }
     
     @Override
     public int getColumnCount(){
-    return 3;
+        return 2;
     }
     
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex){
-        switch(columnIndex){
-            case 0:
-                return "test login";
-                //return model.getCurrentUser().getStoredPasswords().getStoredPasswords().keySet()+"";
-            case 1:
-                return "test password";
-                //return model.getCurrentUser().getStoredPasswords().getStoredPasswords().values()+"";
-            default:
-                return "";
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        HashMap<String, String> passwords =
+            App.getCurrentUser()
+               .getPasswordManager()
+               .getStoredPasswords();
+
+        int i = 0;
+        System.out.println(passwords.toString());
+        for (var entry : passwords.entrySet()) {
+            if (i == rowIndex) {
+                switch (columnIndex) {
+                    case 0:
+                        return entry.getKey();
+                    case 1:
+                        return entry.getValue();
+                    default:
+                        return "";
+                }
+            }
+            i++;
         }
+
+        return "";
     }
     
     @Override
@@ -53,7 +69,7 @@ public class PasswordTableModel extends AbstractTableModel {
             case 0:
                 return "origin";
             case 1:
-                return "passwgord";
+                return "password";
             default:
                 return "";
         }

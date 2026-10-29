@@ -18,15 +18,16 @@ public class Passwords {
     }
     
     public void addPassword(String origin, String password){
-        storedPasswords.put(origin, password);
+        this.storedPasswords.put(origin, password);
     }
     
     public void removePassword(String origin){
-        storedPasswords.remove(origin);
+        System.out.println("REMOVE: " + origin);
+        this.storedPasswords.remove(origin);
     }
     
     public void editPassword(String oldOrigin, String newOrigin, String password){
-        storedPasswords.remove(oldOrigin);
+        this.storedPasswords.remove(oldOrigin);
         this.addPassword(newOrigin, password);
     }
 
@@ -35,6 +36,6 @@ public class Passwords {
     }
     
     public int getSize(){
-        return storedPasswords.size();
+        return this.storedPasswords.size();
     }
 }
