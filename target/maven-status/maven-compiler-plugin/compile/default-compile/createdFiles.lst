@@ -2,6 +2,7 @@ pl\polsl\controller\PasswordLogin.class
 pl\polsl\main\App$Holder.class
 pl\polsl\model\Passwords.class
 pl\polsl\controller\PasswordsCrud.class
+pl\polsl\exception\UnauthorizedException.class
 pl\polsl\main\App.class
 pl\polsl\main\Passwordmanager2.class
 pl\polsl\model\User.class

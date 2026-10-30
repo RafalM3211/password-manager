@@ -5,7 +5,6 @@
 package pl.polsl.view;
 
 import pl.polsl.controller.PasswordLogin;
-import pl.polsl.main.App;
 
 /**
  *
@@ -14,15 +13,19 @@ import pl.polsl.main.App;
 public class Login extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
-    
-    //private App model;
+
 
     /**
      * Creates new form Login
      */
     public Login() {
-      //this.model = new App();
-      initComponents();
+      this("", "");
+    }
+    
+    public Login(String login, String password){
+        initComponents();
+        loginInput.setText(login);
+        passwordInput.setText(password);
     }
 
     /**
@@ -34,8 +37,8 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        loginLabel = new javax.swing.JLabel();
+        passwordLabel = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         loginInput = new javax.swing.JTextField();
         passwordInput = new javax.swing.JTextField();
@@ -43,9 +46,13 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("login");
+        loginLabel.setDisplayedMnemonic('l');
+        loginLabel.setLabelFor(loginInput);
+        loginLabel.setText("login");
 
-        jLabel2.setText("password");
+        passwordLabel.setDisplayedMnemonic('p');
+        passwordLabel.setLabelFor(passwordInput);
+        passwordLabel.setText("password");
 
         loginBtn.setText("zaloguj");
         loginBtn.addActionListener(this::loginBtnActionPerformed);
@@ -66,8 +73,8 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(passwordLabel)
+                            .addComponent(loginLabel))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(loginInput, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
@@ -85,11 +92,11 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(loginLabel)
                     .addComponent(loginInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(passwordLabel)
                     .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(loginBtn)
@@ -98,10 +105,10 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        jLabel1.getAccessibleContext().setAccessibleName("login label");
-        jLabel1.getAccessibleContext().setAccessibleDescription("login label");
-        jLabel2.getAccessibleContext().setAccessibleName("password label");
-        jLabel2.getAccessibleContext().setAccessibleDescription("password label");
+        loginLabel.getAccessibleContext().setAccessibleName("login label");
+        loginLabel.getAccessibleContext().setAccessibleDescription("login label");
+        passwordLabel.getAccessibleContext().setAccessibleName("password label");
+        passwordLabel.getAccessibleContext().setAccessibleDescription("password label");
         loginBtn.getAccessibleContext().setAccessibleName("login button");
         loginBtn.getAccessibleContext().setAccessibleDescription("login button");
         loginInput.getAccessibleContext().setAccessibleName("login input");
@@ -130,37 +137,13 @@ public class Login extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_loginBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginBtn;
     private javax.swing.JTextField loginInput;
+    private javax.swing.JLabel loginLabel;
     private javax.swing.JLabel loginResult;
     private javax.swing.JTextField passwordInput;
+    private javax.swing.JLabel passwordLabel;
     // End of variables declaration//GEN-END:variables
 }

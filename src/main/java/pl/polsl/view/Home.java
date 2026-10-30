@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import pl.polsl.controller.PasswordsCrud;
+import pl.polsl.exception.UnauthorizedException;
 import pl.polsl.main.App;
 
 /**
@@ -28,7 +29,7 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         
-        this.tableModel = new PasswordTableModel();
+        this.tableModel = new PasswordTableModel(this.errorText);
         passwordTable.setVisible(true);
         passwordTable.setModel(this.tableModel);
     }
@@ -47,9 +48,12 @@ public class Home extends javax.swing.JFrame {
         addEntryBtn = new javax.swing.JButton();
         removeEntryBtn = new javax.swing.JButton();
         removeKeyInput = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        errorText = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        passwordTable.setAutoCreateRowSorter(true);
         passwordTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -65,36 +69,49 @@ public class Home extends javax.swing.JFrame {
                 "origin", "password"
             }
         ));
-        passwordTable.setToolTipText("");
+        passwordTable.setToolTipText("password table");
         passwordTable.setCellSelectionEnabled(true);
         jScrollPane1.setViewportView(passwordTable);
         passwordTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         passwordTable.getAccessibleContext().setAccessibleName("password table");
         passwordTable.getAccessibleContext().setAccessibleDescription("password table");
 
+        addEntryBtn.setMnemonic('a');
         addEntryBtn.setText("add password");
         addEntryBtn.setToolTipText("add password");
         addEntryBtn.setName("add password"); // NOI18N
         addEntryBtn.addActionListener(this::addEntryBtnActionPerformed);
 
+        removeEntryBtn.setMnemonic('r');
         removeEntryBtn.setText("remove");
+        removeEntryBtn.setToolTipText("remove button");
         removeEntryBtn.addActionListener(this::removeEntryBtnActionPerformed);
 
         removeKeyInput.setToolTipText("remove input");
+
+        errorText.setForeground(new java.awt.Color(255, 51, 51));
+        errorText.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(removeEntryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(removeKeyInput, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(addEntryBtn)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(67, 67, 67)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(removeEntryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(removeKeyInput, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addEntryBtn)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(errorText, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,12 +125,15 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(removeEntryBtn)
                     .addComponent(removeKeyInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorText, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         removeEntryBtn.getAccessibleContext().setAccessibleDescription("add password");
         removeKeyInput.getAccessibleContext().setAccessibleName("remove input");
-        removeKeyInput.getAccessibleContext().setAccessibleDescription("remove input");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -143,26 +163,33 @@ public class Home extends javax.swing.JFrame {
             String password = new String(hasloField.getPassword());
 
             if (!origin.trim().isEmpty() && !password.trim().isEmpty()) {
-                PasswordsCrud passwordCrud = new PasswordsCrud();
-                passwordCrud.addPassword(origin, password);
-                
-                this.tableModel.fireTableDataChanged();
+                try {
+                    PasswordsCrud passwordCrud = new PasswordsCrud();
+                    passwordCrud.addPassword(origin, password);
+                    this.tableModel.fireTableDataChanged();
+                } catch (UnauthorizedException e) {
+                    errorText.setText(e.getMessage());
+                }
             }
         }
     }//GEN-LAST:event_addEntryBtnActionPerformed
 
     private void removeEntryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEntryBtnActionPerformed
-        String origin = removeKeyInput.getText();
-        
-        PasswordsCrud passwordCrud = new PasswordsCrud();
-        passwordCrud.removePassword(origin);
-        
-        this.tableModel.fireTableDataChanged();
+        try {
+            String origin = removeKeyInput.getText();
+            PasswordsCrud passwordCrud = new PasswordsCrud();
+            passwordCrud.removePassword(origin);
+            this.tableModel.fireTableDataChanged();
+        } catch (UnauthorizedException e) {
+            errorText.setText(e.getMessage());
+        }
     }//GEN-LAST:event_removeEntryBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addEntryBtn;
+    private javax.swing.JLabel errorText;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable passwordTable;
     private javax.swing.JButton removeEntryBtn;

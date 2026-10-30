@@ -6,8 +6,11 @@ package pl.polsl.view;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JLabel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
+import pl.polsl.controller.PasswordsCrud;
+import pl.polsl.exception.UnauthorizedException;
 import pl.polsl.main.App;
 
 /**
@@ -16,19 +19,20 @@ import pl.polsl.main.App;
  */
 public class PasswordTableModel extends AbstractTableModel {
     private App model;
-    
+    private JLabel errorText;
+
     public void setModel(App model){
         this.model = model;
     }
 
-    public PasswordTableModel() {
+    public PasswordTableModel(JLabel errorText) {
         this.model = App.getInstance();
+        this.errorText = errorText;
     }
     
     @Override
     public int getRowCount(){
         var a = App.getCurrentUser().getPasswordManager().getSize();
-        System.out.println(a);
         return a;
     }
     
@@ -45,7 +49,6 @@ public class PasswordTableModel extends AbstractTableModel {
                .getStoredPasswords();
 
         int i = 0;
-        System.out.println(passwords.toString());
         for (var entry : passwords.entrySet()) {
             if (i == rowIndex) {
                 switch (columnIndex) {
@@ -75,4 +78,38 @@ public class PasswordTableModel extends AbstractTableModel {
         }
     }
 
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        HashMap<String, String> passwords =
+            App.getCurrentUser()
+               .getPasswordManager()
+               .getStoredPasswords();
+
+        PasswordsCrud passwordCrud = new PasswordsCrud();
+        
+        int i = 0;
+        for (var entry : passwords.entrySet()) {
+            if (i == rowIndex) {
+                try{
+                    switch (columnIndex) {
+                    case 0:
+                        String oldOrigin = entry.getKey();
+                        String newOrigin = (String) aValue;
+                        passwordCrud.editOrigin(oldOrigin, newOrigin);
+                        break;
+                    case 1:
+                        String origin = entry.getKey();
+                        String newPassword = (String) aValue;
+                        passwordCrud.editPassword(origin, newPassword);
+                        break;
+                    }
+                }
+                catch (UnauthorizedException e){
+                    errorText.setText(e.getMessage());
+                }
+                break;
+            }
+            i++;
+        }
+    }
 }

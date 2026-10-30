@@ -17,7 +17,17 @@ public class Passwordmanager2 {
         App app = App.getInstance();
         app.initUsers();
         
-        Login loginFrame = new Login();
+        
+        Login loginFrame;
+        if(args.length>0){
+            String login = args[0];
+            String password = args.length>1? args[1]:"";
+            loginFrame = new Login(login, password);
+        }
+        else {
+            loginFrame = new Login();
+        }
+        
         loginFrame.setVisible(true);
     }
 }
