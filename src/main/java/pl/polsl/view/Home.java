@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package pl.polsl.view;
 
 import java.awt.GridLayout;
@@ -12,19 +8,28 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import pl.polsl.controller.PasswordsCrud;
 import pl.polsl.exception.UnauthorizedException;
-import pl.polsl.main.App;
 
 /**
+ * Home window of the application. Shows passwords of the logged in user
+ * and allows to add and remove them
  *
- * @author cyrax
+ * @author Rafał Malinowski
+ * @version 1
  */
 public class Home extends javax.swing.JFrame {
     
+    /**
+     * Logger of this class
+     */
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Home.class.getName());
+    /**
+     * Model of the table with passwords
+     */
     private PasswordTableModel tableModel;
     
     /**
      * Creates new form Home
+     * @author Rafał Malinowski
      */
     public Home() {
         initComponents();
@@ -138,6 +143,12 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Handles click on the add password button. Shows a dialog asking for origin and password
+     * and adds the entered data to the password manager of the current user.
+     * @author Rafał Malinowski
+     * @param evt Button click event
+     */
     private void addEntryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEntryBtnActionPerformed
         JTextField nazwaField = new JTextField(15);
         JPasswordField hasloField = new JPasswordField(15);
@@ -174,6 +185,12 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addEntryBtnActionPerformed
 
+    /**
+     * Handles click on the remove button. Removes the password with origin typed in the remove input
+     * from the password manager of the current user. If nobody is logged in, an error message is shown
+     * @author Rafał Malinowski
+     * @param evt Button click event
+     */
     private void removeEntryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEntryBtnActionPerformed
         try {
             String origin = removeKeyInput.getText();

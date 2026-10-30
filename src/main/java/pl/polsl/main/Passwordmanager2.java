@@ -8,11 +8,19 @@ import pl.polsl.view.Login;
 
 
 /**
+ * Main class of the password manager application
  *
- * @author SuperStudent-PL
+ * @author Rafał Malinowski
+ * @version 1
  */
 public class Passwordmanager2 {
 
+    /**
+     * Application entry point
+     * Optionally, login and password can be passed as arguments to prefill the login form
+     * @author Rafał Malinowski
+     * @param args Command line arguments: optional login (first) and optional password (second)
+     */
     public static void main(String[] args) {
         App app = App.getInstance();
         app.initUsers();

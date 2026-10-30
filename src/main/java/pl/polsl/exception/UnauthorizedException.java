@@ -5,8 +5,9 @@
 package pl.polsl.exception;
 
 /**
- *
- * @author cyrax
+ * Exception class threw when an action requires a logged in user, but nobody is authenticated
+ * @author Rafał Malinowski
+ * @version 1
  */
 public class UnauthorizedException extends Exception {
     /**

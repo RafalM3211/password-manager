@@ -16,6 +16,9 @@ public class App {
      */
     static private UsersCollection usersCollection;
     
+    /**
+     * Currently logged in user. Null if nobody is logged in
+     */
     static private User currentUser = null;
     
     /**
@@ -26,18 +29,40 @@ public class App {
         App.usersCollection = new UsersCollection();
     }
     
+    /**
+     * Holder of the singleton instance. The instance is created lazily, when the holder is first loaded
+     * @author Rafał Malinowski
+     */
     private static class Holder {
+        /**
+         * The only App instance
+         */
         private static final App INSTANCE = new App();
     }
     
+    /**
+     * Gets the singleton App instance
+     * @author Rafał Malinowski
+     * @return The only App instance
+     */
      public static App getInstance() {
         return Holder.INSTANCE;
     }
 
+    /**
+     * Currently logged in user getter
+     * @author Rafał Malinowski
+     * @return Currently logged in user or null if nobody is logged in
+     */
     public static User getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     * Currently logged in user setter
+     * @author Rafał Malinowski
+     * @param currentUser User to be set as currently logged in
+     */
     public static void setCurrentUser(User currentUser) {
         App.currentUser = currentUser;
     }

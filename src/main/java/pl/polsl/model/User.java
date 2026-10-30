@@ -11,9 +11,21 @@ public class User {
      * User id
      */
     private int id;
+    /**
+     * User login
+     */
     private String login;
+    /**
+     * User main password
+     */
     private String mainPassword;
+    /**
+     * Information whether user has been authenticated
+     */
     private boolean isAuthenticated;
+    /**
+     * Password manager holding passwords stored by the user
+     */
     private Passwords passwordManager;
 
     /**
@@ -43,14 +55,29 @@ public class User {
         return login;
     }
 
+    /**
+     * User password manager getter
+     * @author Rafał Malinowski
+     * @return Password manager with passwords stored by the user
+     */
     public Passwords getPasswordManager() {
         return passwordManager;
     }
 
+    /**
+     * Authentication status getter
+     * @author Rafał Malinowski
+     * @return True if user has been authenticated, false otherwise
+     */
     public boolean isIsAuthenticated() {
         return isAuthenticated;
     }
 
+    /**
+     * Authentication status setter
+     * @author Rafał Malinowski
+     * @param isAuthenticated True if user has been authenticated, false otherwise
+     */
     public void setIsAuthenticated(boolean isAuthenticated) {
         this.isAuthenticated = isAuthenticated;
     }

@@ -21,6 +21,12 @@ public class PasswordLogin implements LoginInterface {
      */
     private String password;
 
+    /**
+     * PasswordLogin constructor
+     * @author Rafał Malinowski
+     * @param login User login
+     * @param password User password
+     */
     public PasswordLogin(String login, String password) {
         this.login = login;
         this.password = password;
@@ -64,14 +70,11 @@ public class PasswordLogin implements LoginInterface {
     @Override
     public boolean authenticate(){
         UsersCollection usersCollection = App.getUsersCollection();
-        System.out.println(login + usersCollection.getSize());
         ArrayList<User> users = usersCollection.getUsersByLogin(login);
-        System.out.println(users);
         
         boolean isSuccessfull = false;
         if(!users.isEmpty()){
             isSuccessfull = password.equals(users.getFirst().getMainPassword());
-            System.out.println(isSuccessfull + " " + login + password);
             if(isSuccessfull) {
                 users.getFirst().setIsAuthenticated(isSuccessfull);
                 App.setCurrentUser(users.getFirst());

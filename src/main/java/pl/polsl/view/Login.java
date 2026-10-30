@@ -1,27 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package pl.polsl.view;
 
 import pl.polsl.controller.PasswordLogin;
 
 /**
+ * Login window of the application
  *
- * @author SuperStudent-PL
+ * @author Rafał Malinowski
+ * @version 1
  */
 public class Login extends javax.swing.JFrame {
     
+    /**
+     * Logger of this class
+     */
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
 
 
     /**
-     * Creates new form Login
+     * Creates new form Login with empty login and password
+     * @author Rafał Malinowski
      */
     public Login() {
       this("", "");
     }
     
+    /**
+     * Creates new form Login with prefilled login and password
+     * @author Rafał Malinowski
+     * @param login Login to put in the login input
+     * @param password Password to put in the password input
+     */
     public Login(String login, String password){
         initComponents();
         loginInput.setText(login);
@@ -41,8 +49,8 @@ public class Login extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         loginInput = new javax.swing.JTextField();
-        passwordInput = new javax.swing.JTextField();
         loginResult = new javax.swing.JLabel();
+        passwordInput = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,10 +67,11 @@ public class Login extends javax.swing.JFrame {
 
         loginInput.setToolTipText("");
 
-        passwordInput.setToolTipText("");
-
         loginResult.setText(" ");
         loginResult.setToolTipText("");
+
+        passwordInput.setText("jPasswordField1");
+        passwordInput.addActionListener(this::passwordInputActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,6 +80,12 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(loginBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(loginResult, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(passwordLabel)
@@ -78,13 +93,7 @@ public class Login extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(loginInput, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                            .addComponent(passwordInput)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(loginBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(loginResult, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(passwordInput))))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -113,15 +122,19 @@ public class Login extends javax.swing.JFrame {
         loginBtn.getAccessibleContext().setAccessibleDescription("login button");
         loginInput.getAccessibleContext().setAccessibleName("login input");
         loginInput.getAccessibleContext().setAccessibleDescription("login input");
-        passwordInput.getAccessibleContext().setAccessibleName("password input");
-        passwordInput.getAccessibleContext().setAccessibleDescription("password input");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Handles click on the login button. Tries to authenticate user with data from the inputs,
+     * shows the result and, if authentication was successful, opens the Home window and closes this one
+     * @author Rafał Malinowski
+     * @param evt Button click event
+     */
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
        String login = loginInput.getText();
-       String password = passwordInput.getText();
+       String password = new String(passwordInput.getPassword());
        
        PasswordLogin passwordLogin = new PasswordLogin(login, password);
        boolean isAuthSuccess = passwordLogin.authenticate();
@@ -137,13 +150,17 @@ public class Login extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_loginBtnActionPerformed
 
+    private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordInputActionPerformed
+
+    }//GEN-LAST:event_passwordInputActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton loginBtn;
     private javax.swing.JTextField loginInput;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JLabel loginResult;
-    private javax.swing.JTextField passwordInput;
+    private javax.swing.JPasswordField passwordInput;
     private javax.swing.JLabel passwordLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,20 +7,6 @@ package pl.polsl.exception;
  */
 public class UserNotFoundException extends Exception {
     /**
-     * Exception message
-     */
-    private String message;
-
-    /**
-     * Exception message getter
-     * @author Rafał Malinowski
-     * @return Exception message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
      * Constructor
      * @author Rafał Malinowski
      * @param userId Id of user wanted to find
@@ -28,5 +14,4 @@ public class UserNotFoundException extends Exception {
     public UserNotFoundException(int userId) {
         super("Couldn't find user with ID: " + userId);
     }
-
 }

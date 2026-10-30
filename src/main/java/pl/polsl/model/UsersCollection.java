@@ -70,6 +70,11 @@ public class UsersCollection {
         throw new UserNotFoundException(id);
     }
     
+    /**
+     * Gets number of users in collection
+     * @author Rafał Malinowski
+     * @return Number of users in collection
+     */
     public int getSize(){
         return users.size();
     }
