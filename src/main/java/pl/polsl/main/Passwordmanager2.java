@@ -22,6 +22,7 @@ public class Passwordmanager2 {
      * @param args Command line arguments: optional login (first) and optional password (second)
      */
     public static void main(String[] args) {
+        javax.swing.UIManager.put("Button.defaultButtonFollowsFocus", Boolean.TRUE);
         App app = App.getInstance();
         app.initUsers();
         

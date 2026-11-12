@@ -1,6 +1,10 @@
 package pl.polsl.main;
 
+import lombok.Getter;
+import pl.polsl.controller.PasswordsCrud;
 import pl.polsl.exception.UserNotFoundException;
+import pl.polsl.model.ActivityLogRepositoryInterface;
+import pl.polsl.model.InMemoryActivityLogRepository;
 import pl.polsl.model.User;
 import pl.polsl.model.UsersCollection;
 
@@ -20,6 +24,15 @@ public class App {
      * Currently logged in user. Null if nobody is logged in
      */
     static private User currentUser = null;
+    
+    @Getter
+    private static final ActivityLogRepositoryInterface activityLogRepository = 
+        new InMemoryActivityLogRepository();
+    
+    @Getter
+    private static final PasswordsCrud passwordsController = 
+        new PasswordsCrud(activityLogRepository);
+
     
     /**
      * App constructor

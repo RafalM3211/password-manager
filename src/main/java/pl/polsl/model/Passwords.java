@@ -5,6 +5,8 @@
 package pl.polsl.model;
 
 import java.util.HashMap;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Password manager model. Holds the passwords of a single user,
@@ -13,19 +15,18 @@ import java.util.HashMap;
  * @author Rafał Malinowski
  * @version 1
  */
+@NoArgsConstructor
 public class Passwords {
     /**
      * Stored passwords. Key is the origin, value is the password for that origin
      */
-    private HashMap<String, String> storedPasswords;
+    @Getter
+    private HashMap<String, String> storedPasswords = new HashMap<String, String>();
 
     /**
      * Passwords constructor. Creates an empty password storage
      * @author Rafał Malinowski
      */
-    public Passwords() {
-        this.storedPasswords = new HashMap<String, String>();
-    }
     
     /**
      * Adds password to storage. If the origin already exists, its password is overwritten
@@ -57,15 +58,6 @@ public class Passwords {
     public void editPassword(String oldOrigin, String newOrigin, String password){
         this.storedPasswords.remove(oldOrigin);
         this.addPassword(newOrigin, password);
-    }
-
-    /**
-     * Stored passwords getter
-     * @author Rafał Malinowski
-     * @return Map of stored passwords, where key is the origin and value is the password
-     */
-    public HashMap<String, String> getStoredPasswords() {
-        return storedPasswords;
     }
     
     /**

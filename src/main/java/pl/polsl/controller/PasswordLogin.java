@@ -76,7 +76,7 @@ public class PasswordLogin implements LoginInterface {
         if(!users.isEmpty()){
             isSuccessfull = password.equals(users.getFirst().getMainPassword());
             if(isSuccessfull) {
-                users.getFirst().setIsAuthenticated(isSuccessfull);
+                //users.getFirst().setAuthenticated(isSuccessfull);
                 App.setCurrentUser(users.getFirst());
             }
         }

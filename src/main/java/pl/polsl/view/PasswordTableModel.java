@@ -1,6 +1,8 @@
 package pl.polsl.view;
 
 import java.util.HashMap;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.table.AbstractTableModel;
 import pl.polsl.controller.PasswordsCrud;
@@ -23,6 +25,11 @@ public class PasswordTableModel extends AbstractTableModel {
      * Label used to show error messages
      */
     private JLabel errorText;
+    
+     /**
+     * Phrase for filtering keys
+     */
+    private String filterPhrase;
 
     /**
      * Application model setter
@@ -31,6 +38,10 @@ public class PasswordTableModel extends AbstractTableModel {
      */
     public void setModel(App model){
         this.model = model;
+    }
+    
+    public void setFilterPhrase(String filterPhrase){
+        this.filterPhrase = filterPhrase;
     }
 
     /**
@@ -41,7 +52,28 @@ public class PasswordTableModel extends AbstractTableModel {
     public PasswordTableModel(JLabel errorText) {
         this.model = App.getInstance();
         this.errorText = errorText;
+        this.filterPhrase = "";
     }
+    
+    private HashMap<String, String> getFilteredPasswords() {
+    HashMap<String, String> passwords =
+            App.getCurrentUser()
+               .getPasswordManager()
+               .getStoredPasswords();
+
+    HashMap<String, String> filtered = new HashMap<String, String>();
+
+    Set<String> result = passwords.keySet().stream().filter((key)->{
+        return key.toLowerCase().contains(filterPhrase.toLowerCase());
+    })
+    .collect(Collectors.toSet());
+    
+    result.forEach((key)->{
+        filtered.put(key, passwords.get(key));
+    });
+
+    return filtered;
+}
     
     /**
      * Gets number of rows, which equals the number of passwords stored by the current user
@@ -50,8 +82,7 @@ public class PasswordTableModel extends AbstractTableModel {
      */
     @Override
     public int getRowCount(){
-        var a = App.getCurrentUser().getPasswordManager().getSize();
-        return a;
+        return this.getFilteredPasswords().size();
     }
     
     /**
@@ -73,10 +104,7 @@ public class PasswordTableModel extends AbstractTableModel {
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        HashMap<String, String> passwords =
-            App.getCurrentUser()
-               .getPasswordManager()
-               .getStoredPasswords();
+        HashMap<String, String> passwords = this.getFilteredPasswords();
 
         int i = 0;
         for (var entry : passwords.entrySet()) {
@@ -129,7 +157,9 @@ public class PasswordTableModel extends AbstractTableModel {
                .getPasswordManager()
                .getStoredPasswords();
 
-        PasswordsCrud passwordCrud = new PasswordsCrud();
+        PasswordsCrud passwordCrud = App.getPasswordsController();
+        
+        System.out.println(aValue);
         
         int i = 0;
         for (var entry : passwords.entrySet()) {
@@ -155,5 +185,10 @@ public class PasswordTableModel extends AbstractTableModel {
             }
             i++;
         }
+    }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return true;
     }
 }

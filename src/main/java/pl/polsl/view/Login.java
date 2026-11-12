@@ -57,20 +57,25 @@ public class Login extends javax.swing.JFrame {
         loginLabel.setDisplayedMnemonic('l');
         loginLabel.setLabelFor(loginInput);
         loginLabel.setText("login");
+        loginLabel.setToolTipText("login label");
 
         passwordLabel.setDisplayedMnemonic('p');
         passwordLabel.setLabelFor(passwordInput);
         passwordLabel.setText("password");
+        passwordLabel.setToolTipText("password label");
 
-        loginBtn.setText("zaloguj");
+        loginBtn.setMnemonic('z');
+        loginBtn.setText("Log In");
+        loginBtn.setToolTipText("login button");
         loginBtn.addActionListener(this::loginBtnActionPerformed);
 
-        loginInput.setToolTipText("");
+        loginInput.setToolTipText("login input");
 
         loginResult.setText(" ");
         loginResult.setToolTipText("");
 
         passwordInput.setText("jPasswordField1");
+        passwordInput.setToolTipText("password input");
         passwordInput.addActionListener(this::passwordInputActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -83,9 +88,6 @@ public class Login extends javax.swing.JFrame {
                         .addGap(80, 80, 80)
                         .addComponent(loginBtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(loginResult, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(passwordLabel)
@@ -93,7 +95,10 @@ public class Login extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(loginInput, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                            .addComponent(passwordInput))))
+                            .addComponent(passwordInput)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(loginResult, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

@@ -1,5 +1,8 @@
 package pl.polsl.model;
 
+//import lombok.Getter;
+//import lombok.Setter;
+
 /**
  * User model
  *
@@ -7,91 +10,48 @@ package pl.polsl.model;
  * @version 1
  */
 public class User {
-    /**
-     * User id
-     */
+    private final InteriorUser interiorUser;
+    
+    public User(int id, String login, String mainPassword) {
+        this.interiorUser = new InteriorUser(id, login, mainPassword, new Passwords());
+    }
+    
+    public int getId(){
+        return this.interiorUser.getId();
+    }
+    
+    public String getLogin(){
+        return this.interiorUser.getLogin();
+    }
+    
+    public String getMainPassword(){
+        return this.interiorUser.getMainPassword();
+    }
+    
+    public Passwords getPasswordManager(){
+        return this.interiorUser.getPasswordManager();
+    }
+    
+    record InteriorUser(int getId, String getLogin, String getMainPassword, Passwords getPasswordManager){}
+}
+
+        /*
+public class User {
+
+    @Getter
     private int id;
-    /**
-     * User login
-     */
+
+    @Getter
     private String login;
-    /**
-     * User main password
-     */
+
+    @Getter
     private String mainPassword;
-    /**
-     * Information whether user has been authenticated
-     */
+    @Getter @Setter
     private boolean isAuthenticated;
-    /**
-     * Password manager holding passwords stored by the user
-     */
+
+    @Getter
     private Passwords passwordManager;
-
-    /**
-     * User Id getter
-     * @author Rafał Malinowski
-     * @return User id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * User main password getter
-     * @author Rafał Malinowski
-     * @return User main password
-     */
-    public String getMainPassword() {
-        return mainPassword;
-    }
-
-    /**
-     * User login getter
-     * @author Rafał Malinowski
-     * @return User login
-     */
-    public String getLogin() {
-        return login;
-    }
-
-    /**
-     * User password manager getter
-     * @author Rafał Malinowski
-     * @return Password manager with passwords stored by the user
-     */
-    public Passwords getPasswordManager() {
-        return passwordManager;
-    }
-
-    /**
-     * Authentication status getter
-     * @author Rafał Malinowski
-     * @return True if user has been authenticated, false otherwise
-     */
-    public boolean isIsAuthenticated() {
-        return isAuthenticated;
-    }
-
-    /**
-     * Authentication status setter
-     * @author Rafał Malinowski
-     * @param isAuthenticated True if user has been authenticated, false otherwise
-     */
-    public void setIsAuthenticated(boolean isAuthenticated) {
-        this.isAuthenticated = isAuthenticated;
-    }
-    
-    
-    
-
-    /**
-     * User constructor
-     * @author Rafał Malinowski
-     * @param id user Id
-     * @param mainPassword user password
-     * @param login user login
-     */
+ 
     public User(int id, String login, String mainPassword) {
         this.id = id;
         this.login = login;
@@ -99,6 +59,5 @@ public class User {
         
         this.passwordManager = new Passwords();
     }
-    
-    
 }
+*/

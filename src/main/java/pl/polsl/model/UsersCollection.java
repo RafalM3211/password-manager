@@ -2,17 +2,19 @@ package pl.polsl.model;
 import pl.polsl.exception.UserNotFoundException;
 
 import java.util.ArrayList;
+import lombok.NoArgsConstructor;
 
 /**
  * Holds all users. Database mockup for now
  * @author Rafał Malinowski
  * @version 1
  */
+@NoArgsConstructor
 public class UsersCollection {
     /**
      * App users array
      */
-    private ArrayList<User> users;
+    private ArrayList<User> users = new ArrayList<User>();
 
     /**
      * Adds user to application
@@ -83,7 +85,7 @@ public class UsersCollection {
      * UsersCollection constructor
      * @author Rafał Malinowski
      */
-    public UsersCollection() {
-        this.users = new ArrayList<User>();
-    }
+    //public UsersCollection() {
+    //    this.users = new ArrayList<User>();
+    //}
 }

@@ -4,8 +4,12 @@
  */
 package pl.polsl.controller;
 
+import pl.polsl.enums.Action;
+import java.time.LocalDateTime;
 import pl.polsl.exception.UnauthorizedException;
 import pl.polsl.main.App;
+import pl.polsl.model.ActivityLog;
+import pl.polsl.model.ActivityLogRepositoryInterface;
 import pl.polsl.model.User;
 
 /**
@@ -19,12 +23,16 @@ public class PasswordsCrud {
      */
     private final User currentUser;
     
+    private final ActivityLogRepositoryInterface logRepository;
+    
     /**
      * PasswordsCrud constructor. Takes the currently logged in user from the application state
      * @author Rafał Malinowski
+     * @param logRepository Log repository
      */
-    public PasswordsCrud(){
+    public PasswordsCrud(ActivityLogRepositoryInterface logRepository){
         this.currentUser = App.getCurrentUser();
+        this.logRepository = logRepository;
     }
     
     /**
@@ -35,8 +43,16 @@ public class PasswordsCrud {
      * @throws UnauthorizedException Throws if there is no logged in user
      */
     public void addPassword(String origin, String password) throws UnauthorizedException{
-        if (this.currentUser != null){
-            this.currentUser.getPasswordManager().addPassword(origin, password);
+        if (App.getCurrentUser() != null){
+            App.getCurrentUser().getPasswordManager().addPassword(origin, password);
+            this.logRepository.save(new ActivityLog(
+               LocalDateTime.now(),
+                Action.ADD,
+                origin,
+                "Added new password",
+                App.getCurrentUser().getId()
+            ));
+            System.out.println(this.logRepository.findAll());
         }
         else{
             throw new UnauthorizedException();
@@ -50,7 +66,16 @@ public class PasswordsCrud {
      * @throws UnauthorizedException Throws if there is no logged in user
      */
     public void removePassword(String origin) throws UnauthorizedException{
-        if (this.currentUser != null) this.currentUser.getPasswordManager().removePassword(origin);
+        if (App.getCurrentUser() != null) {
+            App.getCurrentUser().getPasswordManager().removePassword(origin);
+            this.logRepository.save(new ActivityLog(
+               LocalDateTime.now(),
+                Action.DELETE,
+                origin,
+                "Removed password",
+                App.getCurrentUser().getId()
+            ));
+        }
         else{
             throw new UnauthorizedException();
         }
@@ -64,9 +89,16 @@ public class PasswordsCrud {
      * @throws UnauthorizedException Throws if there is no logged in user
      */
     public void editPassword(String origin, String newPassword) throws UnauthorizedException{
-        if (this.currentUser != null){
-            this.currentUser.getPasswordManager().removePassword(origin);
-            this.addPassword(origin, newPassword);
+        if (App.getCurrentUser() != null){
+            App.getCurrentUser().getPasswordManager().removePassword(origin);
+            App.getCurrentUser().getPasswordManager().addPassword(origin, newPassword);
+            this.logRepository.save(new ActivityLog(
+               LocalDateTime.now(),
+                Action.EDIT,
+                origin,
+                "Modified password",
+                App.getCurrentUser().getId()
+            ));
         }
         else{
             throw new UnauthorizedException();
@@ -81,10 +113,17 @@ public class PasswordsCrud {
      * @throws UnauthorizedException Throws if there is no logged in user
      */
     public void editOrigin(String oldOrigin, String newOrigin) throws UnauthorizedException{
-        if (this.currentUser != null){
-            String password = this.currentUser.getPasswordManager().getStoredPasswords().get(oldOrigin);
-            this.currentUser.getPasswordManager().removePassword(oldOrigin);
-            this.addPassword(newOrigin, password);
+        if (App.getCurrentUser() != null){
+            String password = App.getCurrentUser().getPasswordManager().getStoredPasswords().get(oldOrigin);
+            App.getCurrentUser().getPasswordManager().removePassword(oldOrigin);
+            App.getCurrentUser().getPasswordManager().addPassword(newOrigin, password);
+            this.logRepository.save(new ActivityLog(
+               LocalDateTime.now(),
+                Action.EDIT,
+                oldOrigin,
+                "Modified origin. New origin: " + newOrigin,
+                App.getCurrentUser().getId()
+            ));
         }
         else{
             throw new UnauthorizedException();

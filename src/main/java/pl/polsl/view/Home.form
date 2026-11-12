@@ -26,46 +26,60 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="removeEntryBtn" min="-2" pref="101" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="removeKeyInput" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="addEntryBtn" min="-2" max="-2" attributes="0"/>
+                                  <Component id="removeEntryBtn" min="-2" pref="105" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                              <Component id="errorText" min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="addEntryBtn" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="262" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jScrollPane1" min="-2" pref="262" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="logsBtn" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="errorText" min="-2" pref="71" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="filterBtn" min="-2" pref="103" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="filterKeysInput" min="-2" pref="87" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="71" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="169" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="addEntryBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="removeEntryBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="removeKeyInput" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="169" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="logsBtn" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="errorText" min="-2" pref="19" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="addEntryBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="removeEntryBtn" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="errorText" min="-2" pref="23" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="filterBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="filterKeysInput" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,7 +123,6 @@
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="password table"/>
-            <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="password table"/>
           </AccessibilityProperties>
         </Component>
       </SubComponents>
@@ -117,7 +130,7 @@
     <Component class="javax.swing.JButton" name="addEntryBtn">
       <Properties>
         <Property name="mnemonic" type="int" value="97"/>
-        <Property name="text" type="java.lang.String" value="add password"/>
+        <Property name="text" type="java.lang.String" value="Add password"/>
         <Property name="toolTipText" type="java.lang.String" value="add password"/>
         <Property name="name" type="java.lang.String" value="add password" noResource="true"/>
       </Properties>
@@ -128,7 +141,7 @@
     <Component class="javax.swing.JButton" name="removeEntryBtn">
       <Properties>
         <Property name="mnemonic" type="int" value="114"/>
-        <Property name="text" type="java.lang.String" value="remove"/>
+        <Property name="text" type="java.lang.String" value="Remove"/>
         <Property name="toolTipText" type="java.lang.String" value="remove button"/>
       </Properties>
       <AccessibilityProperties>
@@ -138,23 +151,40 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeEntryBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="removeKeyInput">
+    <Component class="javax.swing.JButton" name="filterBtn">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="remove input"/>
+        <Property name="mnemonic" type="int" value="102"/>
+        <Property name="text" type="java.lang.String" value="Filter"/>
+        <Property name="toolTipText" type="java.lang.String" value="filter button"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="filterKeysInput">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="filter input"/>
       </Properties>
       <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="remove input"/>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="filter input"/>
       </AccessibilityProperties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
     </Component>
     <Component class="javax.swing.JLabel" name="errorText">
       <Properties>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="33" red="ff" type="rgb"/>
+          <Color blue="33" green="0" red="ff" type="rgb"/>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="logsBtn">
+      <Properties>
+        <Property name="mnemonic" type="int" value="108"/>
+        <Property name="text" type="java.lang.String" value="Activity Log"/>
+        <Property name="toolTipText" type="java.lang.String" value="Activity log"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logsBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
