@@ -25,10 +25,16 @@ public class App {
      */
     static private User currentUser = null;
     
+    /**
+     * Holds activity log repository
+     */
     @Getter
     private static final ActivityLogRepositoryInterface activityLogRepository = 
         new InMemoryActivityLogRepository();
     
+    /**
+     * App password controller
+     */
     @Getter
     private static final PasswordsCrud passwordsController = 
         new PasswordsCrud(activityLogRepository);

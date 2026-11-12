@@ -4,20 +4,26 @@
  */
 package pl.polsl.view;
 
-import javax.swing.JTable;
 import pl.polsl.enums.Action;
 
 /**
+ * Activity log view
  *
- * @author cyrax
+ * @author Rafał Malinowski
+ * @version 1
  */
 public class ActivityLog extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ActivityLog.class.getName());
 
+    /**
+     * Model of the table with logs
+     */
     private ActivityLogTableModel tableModel;
+    
     /**
      * Creates new form ActivityLog
+     * @author Rafał Malinowski
      */
     public ActivityLog() {
         initComponents();
@@ -129,12 +135,20 @@ public class ActivityLog extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * handles filter phrase input
+     * @author Rafał Malinowski
+     */
     private void filterPhraseInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterPhraseInputActionPerformed
 
         this.tableModel.setFilterPhrase(filterPhraseInput.getText());
         this.tableModel.refresh();
     }//GEN-LAST:event_filterPhraseInputActionPerformed
 
+    /**
+     * handles combo box input
+     * @author Rafał Malinowski
+     */
     private void actionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actionComboBoxActionPerformed
         String selected = (String) actionComboBox.getSelectedItem();
             if (selected.equals("All")) {
@@ -145,6 +159,10 @@ public class ActivityLog extends javax.swing.JFrame {
             this.tableModel.refresh();
     }//GEN-LAST:event_actionComboBoxActionPerformed
 
+    /**
+     * Redirects to home frame
+     * @author Rafał Malinowski
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         Home homeFrame = new Home();
         homeFrame.setVisible(true);

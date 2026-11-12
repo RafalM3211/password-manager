@@ -52,10 +52,20 @@ public class ActivityLogTableModel extends AbstractTableModel {
         this.model = model;
     }
 
+    /**
+     * Filter phrase setter. Logs are filtered by origin, details and action name
+     * @author Rafał Malinowski
+     * @param filterPhrase Phrase to filter by, null is treated as empty phrase (no filtering)
+     */
     public void setFilterPhrase(String filterPhrase) {
         this.filterPhrase = filterPhrase == null ? "" : filterPhrase;
     }
 
+    /**
+     * Filter action setter
+     * @author Rafał Malinowski
+     * @param filterAction Action to filter by, null means all actions
+     */
     public void setFilterAction(Action filterAction) {
         this.filterAction = filterAction;
     }
@@ -75,7 +85,8 @@ public class ActivityLogTableModel extends AbstractTableModel {
     /**
      * Returns logs of the current user, filtered by phrase and action,
      * sorted from newest to oldest.
-     * @return Filtered list of activity logs
+     * @author Rafał Malinowski
+     * @return Filtered list of activity logs, empty list if nobody is logged in
      */
     private List<ActivityLog> getFilteredLogs() {
         if (App.getCurrentUser() == null) {
@@ -98,6 +109,7 @@ public class ActivityLogTableModel extends AbstractTableModel {
 
     /**
      * Gets log at given row, useful for selection
+     * @author Rafał Malinowski
      * @param rowIndex Index of the row
      * @return ActivityLog in the given row
      */
@@ -107,6 +119,7 @@ public class ActivityLogTableModel extends AbstractTableModel {
 
     /**
      * Refreshes the table view
+     * @author Rafał Malinowski
      */
     public void refresh() {
         fireTableDataChanged();
@@ -181,6 +194,10 @@ public class ActivityLogTableModel extends AbstractTableModel {
 
     /**
      * Logs are read-only, they cannot be edited from the table
+     * @author Rafał Malinowski
+     * @param rowIndex Index of the row
+     * @param columnIndex Index of the column
+     * @return Always false
      */
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {

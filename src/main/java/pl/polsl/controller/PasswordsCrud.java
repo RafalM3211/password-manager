@@ -18,10 +18,6 @@ import pl.polsl.model.User;
  * @version 1
  */
 public class PasswordsCrud {
-    /**
-     * User that was logged in when this object was created
-     */
-    private final User currentUser;
     
     private final ActivityLogRepositoryInterface logRepository;
     
@@ -31,7 +27,6 @@ public class PasswordsCrud {
      * @param logRepository Log repository
      */
     public PasswordsCrud(ActivityLogRepositoryInterface logRepository){
-        this.currentUser = App.getCurrentUser();
         this.logRepository = logRepository;
     }
     
