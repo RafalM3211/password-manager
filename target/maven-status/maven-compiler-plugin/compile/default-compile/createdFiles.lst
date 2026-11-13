@@ -3,6 +3,7 @@ pl\polsl\main\App$Holder.class
 pl\polsl\view\ActivityLog.class
 pl\polsl\view\ActivityLogTableModel.class
 pl\polsl\enums\Action.class
+pl\polsl\model\ActivityLogFilter.class
 pl\polsl\model\Passwords.class
 pl\polsl\controller\PasswordsCrud.class
 pl\polsl\exception\UnauthorizedException.class

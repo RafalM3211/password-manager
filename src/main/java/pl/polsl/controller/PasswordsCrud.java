@@ -47,7 +47,6 @@ public class PasswordsCrud {
                 "Added new password",
                 App.getCurrentUser().getId()
             ));
-            System.out.println(this.logRepository.findAll());
         }
         else{
             throw new UnauthorizedException();

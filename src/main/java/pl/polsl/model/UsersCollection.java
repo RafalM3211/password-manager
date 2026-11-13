@@ -80,12 +80,4 @@ public class UsersCollection {
     public int getSize(){
         return users.size();
     }
-
-    /**
-     * UsersCollection constructor
-     * @author Rafał Malinowski
-     */
-    //public UsersCollection() {
-    //    this.users = new ArrayList<User>();
-    //}
 }

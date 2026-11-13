@@ -8,6 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import pl.polsl.main.App;
 import pl.polsl.enums.Action;
 import pl.polsl.model.ActivityLog;
+import pl.polsl.model.ActivityLogFilter;
 
 /**
  * Table model presenting activity logs of the currently logged in user.
@@ -93,18 +94,15 @@ public class ActivityLogTableModel extends AbstractTableModel {
             return List.of();
         }
 
-        int currentUserId = App.getCurrentUser().getId();
-        String phrase = filterPhrase.toLowerCase();
+        ActivityLogFilter filter = new ActivityLogFilter(
+            App.getCurrentUser().getId(),
+            filterAction,
+            filterPhrase,
+            null,
+            null
+        );
 
-        return App.getActivityLogRepository().findAll().stream()
-                .filter(log -> currentUserId == log.getUserId())
-                .filter(log -> filterAction == null || log.getAction() == filterAction)
-                .filter(log -> phrase.isEmpty()
-                        || (log.getOrigin() != null && log.getOrigin().toLowerCase().contains(phrase))
-                        || (log.getDetails() != null && log.getDetails().toLowerCase().contains(phrase))
-                        || log.getAction().name().toLowerCase().contains(phrase))
-                .sorted((a, b) -> b.getData().compareTo(a.getData()))
-                .collect(Collectors.toList());
+        return App.getActivityLogRepository().findByFilter(filter);
     }
 
     /**
