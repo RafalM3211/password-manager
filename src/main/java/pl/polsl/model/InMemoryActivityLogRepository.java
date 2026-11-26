@@ -3,11 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package pl.polsl.model;
-import pl.polsl.enums.Action;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -74,18 +72,6 @@ public class InMemoryActivityLogRepository implements ActivityLogRepositoryInter
     }
 
     /**
-     * Gets activity logs of given user with given action
-     * @author Rafał Malinowski
-     * @param userId Id of the user
-     * @param action Action to filter by
-     * @return List of found activity logs, sorted from newest to oldest
-     */
-    @Override
-    public List<ActivityLog> findByUserIdAndAction(int userId, Action action) {
-        return findByFilter(new ActivityLogFilter(userId, action, null, null, null));
-    }
-
-    /**
      * Gets all activity logs
      * @author Rafał Malinowski
      * @return List of all activity logs, sorted from newest to oldest
@@ -104,10 +90,5 @@ public class InMemoryActivityLogRepository implements ActivityLogRepositoryInter
     @Override
     public void deleteAll() {
         storage.clear();
-    }
-
-    @Override
-    public Optional<ActivityLog> findLatestByUserId() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

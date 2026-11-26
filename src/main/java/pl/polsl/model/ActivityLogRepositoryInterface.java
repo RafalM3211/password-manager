@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package pl.polsl.model;
-import pl.polsl.enums.Action;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Interface for activity log repositories. Defines saving, searching and deleting of activity logs
@@ -41,21 +38,6 @@ public interface ActivityLogRepositoryInterface {
      * @return List of found activity logs
      */
     List<ActivityLog> findByUserId(int userId);
-
-    /**
-     * Gets activity logs of given user with given action
-     * @author Rafał Malinowski
-     * @param userId Id of the user
-     * @param action Action to filter by
-     * @return List of found activity logs
-     */
-    List<ActivityLog> findByUserIdAndAction(int userId, Action action);
-    /**
-     * Gets the most recent activity log
-     * @author Rafał Malinowski
-     * @return The most recent activity log or empty optional if there are no logs
-     */
-    Optional<ActivityLog> findLatestByUserId();
 
     /**
      * Deletes all stored activity logs

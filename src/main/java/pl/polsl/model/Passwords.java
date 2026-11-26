@@ -44,21 +44,9 @@ public class Passwords {
      * @param origin Origin of the password to remove
      */
     public void removePassword(String origin){
-        System.out.println("REMOVE: " + origin);
         this.storedPasswords.remove(origin);
     }
-    
-    /**
-     * Edits stored entry by removing the old one and adding a new one
-     * @author Rafał Malinowski
-     * @param oldOrigin Current origin of the entry
-     * @param newOrigin New origin of the entry
-     * @param password Password to store under the new origin
-     */
-    public void editPassword(String oldOrigin, String newOrigin, String password){
-        this.storedPasswords.remove(oldOrigin);
-        this.addPassword(newOrigin, password);
-    }
+
     
     /**
      * Gets number of stored passwords

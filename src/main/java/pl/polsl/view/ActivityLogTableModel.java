@@ -102,6 +102,7 @@ public class ActivityLogTableModel extends AbstractTableModel {
             null
         );
 
+        var a = 2;
         return App.getActivityLogRepository().findByFilter(filter);
     }
 

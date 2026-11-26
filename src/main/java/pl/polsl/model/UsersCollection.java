@@ -2,6 +2,7 @@ package pl.polsl.model;
 import pl.polsl.exception.UserNotFoundException;
 
 import java.util.ArrayList;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -14,6 +15,7 @@ public class UsersCollection {
     /**
      * App users array
      */
+    @Getter
     private ArrayList<User> users = new ArrayList<User>();
 
     /**
