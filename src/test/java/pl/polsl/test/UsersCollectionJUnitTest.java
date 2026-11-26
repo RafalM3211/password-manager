@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pl.polsl.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,11 +12,17 @@ import pl.polsl.model.User;
 import pl.polsl.model.UsersCollection;
 
 /**
+ * Unit tests of the UsersCollection class
  *
- * @author SuperStudent-PL
+ * @author Rafał Malinowski
+ * @version 1
  */
 public class UsersCollectionJUnitTest {
     
+    /**
+     * Checks that an added user is stored in the collection with unchanged id, login and password.
+     * Test data: a single user with id 1, login "test" and password "test"
+     */
     @Test
     public void addingUserTest() {
         UsersCollection usersCollection = new UsersCollection();
@@ -29,11 +31,21 @@ public class UsersCollectionJUnitTest {
         
         User expectedUser = new User(1, "test", "test");
        
-        assertEquals(expectedUser.getId(), usersCollection.getUsers().getFirst().getId());
-        assertEquals(expectedUser.getLogin(), usersCollection.getUsers().getFirst().getLogin());
-        assertEquals(expectedUser.getMainPassword(), usersCollection.getUsers().getFirst().getMainPassword());
+        assertEquals(expectedUser.getId(), usersCollection.getUsers().getFirst().getId(),
+                "Id of the added user should not change");
+        assertEquals(expectedUser.getLogin(), usersCollection.getUsers().getFirst().getLogin(),
+                "Login of the added user should not change");
+        assertEquals(expectedUser.getMainPassword(), usersCollection.getUsers().getFirst().getMainPassword(),
+                "Main password of the added user should not change");
     }
     
+    /**
+     * Checks that the user with the given id is found in a collection of two users
+     * (the second user has id increased by one).
+     * Test data: ids 1, 4, 0 and -1 (including zero and a negative value)
+     *
+     * @param id Id of the searched user
+     */
     @ParameterizedTest
     @ValueSource(ints = {1, 4, 0, -1})
     public void getUserByIdTest(int id){
@@ -45,13 +57,21 @@ public class UsersCollectionJUnitTest {
             
             User actualUser = usersCollection.getUserById(id);
             
-            assertEquals(expectedUser, actualUser);
+            assertEquals(expectedUser, actualUser,
+                    "User found by id " + id + " should be the one added with this id");
         } 
         catch (UserNotFoundException e) {
             fail("User should be found");
         }
     }
     
+    /**
+     * Checks that searching for a user with an id that is not in the collection throws UserNotFoundException.
+     * The collection contains users with ids "id" and "id + 1", the searched id is "id + 10".
+     * Test data: ids 1, 4, 0 and -1
+     *
+     * @param id Id of the user added to the collection (the searched id is id + 10)
+     */
     @ParameterizedTest
     @ValueSource(ints = {1, 4, 0, -1})
     public void throwWhenUserNotFoundTest(int id){
@@ -66,9 +86,17 @@ public class UsersCollectionJUnitTest {
             fail("User shouldn't be found. Exception should be thrown");
         } 
         catch (UserNotFoundException ex) {
+            // Expected: the user does not exist, so the exception is the correct result
         }
     }
     
+    /**
+     * Checks that exactly one user is found by login when another user has a different login
+     * (the searched login with "test2" appended).
+     * Test data: an empty login, ordinary logins, a login with a space, a blank login and a tab
+     *
+     * @param login Login of the searched user
+     */
     @ParameterizedTest
     @EmptySource
     @ValueSource(strings = {"Jan", "marek", "stefan ko", "   ", "\t"})
@@ -80,10 +108,19 @@ public class UsersCollectionJUnitTest {
         
         var actualUsers = usersCollection.getUsersByLogin(login);
         
-        assertEquals(actualUsers.size(), 1);
-        assertEquals(actualUsers.getFirst(), expectedUser);
+        assertEquals(actualUsers.size(), 1,
+                "Exactly one user should be found for login '" + login + "'");
+        assertEquals(actualUsers.getFirst(), expectedUser,
+                "Found user should be the one added with login '" + login + "'");
     }
     
+    /**
+     * Checks that no users are found when no user has exactly the searched login
+     * (both users in the collection have the searched login with "test1" or "test2" appended).
+     * Test data: a null login, an empty login, ordinary logins, a blank login and a tab
+     *
+     * @param login Searched login, which no user has
+     */
     @ParameterizedTest
     @EmptySource
     @NullSource
@@ -96,9 +133,17 @@ public class UsersCollectionJUnitTest {
         
         var actualUsers = usersCollection.getUsersByLogin(login);
         
-        assertEquals(actualUsers.size(), 0);
+        assertEquals(actualUsers.size(), 0,
+                "No users should be found for login '" + login + "'");
     }
     
+    /**
+     * Checks that deleting a user removes only the user with the given id.
+     * The collection contains users with ids "id" and "id + 1", the user with id "id" is deleted.
+     * Test data: ids 1, 4, 0 and -2
+     *
+     * @param id Id of the user to delete
+     */
     @ParameterizedTest
     @ValueSource(ints = {1, 4, 0, -2})
     public void deleteUserTest(int id){
@@ -110,14 +155,23 @@ public class UsersCollectionJUnitTest {
             
             usersCollection.deleteUser(id);
             
-            assertEquals(usersCollection.getSize(), 1);
-            assertEquals(usersCollection.getUsers().getFirst().getId(), id+1);
+            assertEquals(usersCollection.getSize(), 1,
+                    "Collection should contain one user after deleting user with id " + id);
+            assertEquals(usersCollection.getUsers().getFirst().getId(), id+1,
+                    "The remaining user should be the one with id " + (id+1));
         }
         catch (UserNotFoundException ex){
             fail("User should be found");
         }
     }
     
+    /**
+     * Checks that deleting a user with an id that is not in the collection throws UserNotFoundException.
+     * The collection contains users with ids "id" and "id + 1", the deleted id is "id + 10".
+     * Test data: ids 1, 4, 0 and -2
+     *
+     * @param id Id of the user added to the collection (the deleted id is id + 10)
+     */
     @ParameterizedTest
     @ValueSource(ints = {1, 4, 0, -2})
     public void doesNotDeleteUserWhenNotFoundTest(int id){
@@ -132,6 +186,7 @@ public class UsersCollectionJUnitTest {
             fail("Should throw UserNotFoundException");
         }
         catch (UserNotFoundException ex){
+            // Expected: the user does not exist, so the exception is the correct result
         }
     }
 }
